@@ -94,12 +94,9 @@ function stripeCall(email, donationAmount){
   var urlAWS = 'https://57n3xwgzs3.execute-api.us-west-2.amazonaws.com/default/test2?stripe=true';
   urlAWS+='&email=' + email;
   urlAWS+='&donationAmount=' + donationAmount;
-  // console.log(urlAWS);
   fetch(urlAWS).then((response) => {
-    // console.log(response.json());
-    return response.json(); 
+    return response; 
   }).then((result) => {
-    // console.log(result);
   })
   ;
 }
@@ -127,8 +124,6 @@ chrome.runtime.onConnect.addListener(function(port) {
         var small = bigLst[1];
 
         var cleanStr = msg.data.replaceAll("& ","");
-        console.log(big);
-        console.log(cleanStr);
 
         port.postMessage({answer: "connected" + msg.data});
         const starCountRef = ref(appDb, 'Amazon_Categories');
@@ -137,13 +132,11 @@ chrome.runtime.onConnect.addListener(function(port) {
             var finalCount = 0;
             var temp = "";
             var catLst = cleanStr.split(" ");
-            // console.log(catLst);
             Object.entries(data).forEach((entry) => {
               var count = 0;
               const [key , value] = entry;
               var nodes = value.substring(1).split("/");
               var leafNode = key.toString().substring(0, key.toString().indexOf("("));
-              // console.log(nodes[0]);
 
               temp = value.toString() + "/" + key.toString();
 
@@ -163,7 +156,6 @@ chrome.runtime.onConnect.addListener(function(port) {
                 finalPath = temp;
               }
             });
-            console.log(finalCount);
             port.postMessage({answer: "1" + finalPath});
         });
       }

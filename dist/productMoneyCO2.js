@@ -96,13 +96,13 @@ port.onMessage.addListener(function(msg) {
 
       category = categoryPath.split("/")[0];
 
-      console.log(categoryPath);
-      console.log(category);
-
       let co2PerDollar = categoriesMap.get(category);
       if (co2PerDollar == null || category == null) throw "null";
       let dimensionsString = desktop.getElementsByClassName("a-offscreen");
-      let number = dimensionsString[0].textContent.substring(1);
+      if (dimensionsString.length == 0){
+        dimensionsString = document.getElementById("tp_price_block_total_price_ww").getElementsByClassName("a-offscreen");
+      }
+      let number = dimensionsString[0].innerText.substring(1);
       let product = document.getElementById("productTitle").innerText;
       let price = Number(number.replace(/[^0-9.-]+/g,""));
 
@@ -112,7 +112,6 @@ port.onMessage.addListener(function(msg) {
       td12.appendChild(textArea);
       desktop.appendChild(tbl2);
 
-      
       port.postMessage({data: "2" + asinVal + msg.answer.substring(1) + "@" + product});
     }
     catch (err){
@@ -145,7 +144,11 @@ for (var amazon_div of amazon_divs) {
       while (!isNaN(asinStrVal.charAt(0)) || !(/[a-zA-Z]/).test(asinStrVal.charAt(0))){
         asinStrVal = asinStrVal.substring(1);
       }
-      asinVal = asinStrVal.substring(0, 11)
+      var url = window.location.href;
+      asinVal = url.substring(url.indexOf("dp/") + 3, url.indexOf("dp/") + 13);
+      if (asinVal == null ) asinVal = asinStrVal.substring(0, 11);
+      
+      
 
       for (var i = 0 ; i < categories.length; i++){
         if (elemStr.includes(categories[i])){
@@ -159,7 +162,6 @@ for (var amazon_div of amazon_divs) {
         subCatIndex = secondIndex + 1;
         
         subCatStr = asinStrVal.substring(subCatIndex, asinStrVal.indexOf("\n", subCatIndex)).trim();
-        console.log(subCatStr);
 
         port.postMessage({data: "1" + subCatStr});
         //use python script
@@ -171,7 +173,6 @@ for (var amazon_div of amazon_divs) {
         subCatIndex = secondIndex + 1;
 
         subCatStr = asinStrVal.substring(subCatIndex, asinStrVal.indexOf("\n", subCatIndex)).trim();
-        console.log(subCatStr);
         port.postMessage({data: "1" + category + "@" + subCatStr});
         // go directly to map code
       }
@@ -179,7 +180,6 @@ for (var amazon_div of amazon_divs) {
     }
     //If the product is not found in the lists
     catch (err){
-      console.log(err)
       textArea.value = "Sorry we currently don't" + "\nsupport this product";
       td12.appendChild(textArea);
       desktop.appendChild(tbl2);
