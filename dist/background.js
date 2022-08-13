@@ -91,7 +91,8 @@ function addToDatabase(result, products){
 }
 
 function stripeCall(email, donationAmount){
-  var urlAWS = 'https://57n3xwgzs3.execute-api.us-west-2.amazonaws.com/default/test2?stripe=true';
+  
+  var urlAWS = 'https://7nnicg6720.execute-api.us-west-1.amazonaws.com/default/clove_chrome_extension?stripe=true';
   urlAWS+='&email=' + email;
   urlAWS+='&donationAmount=' + donationAmount;
   fetch(urlAWS).then((response) => {
