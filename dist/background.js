@@ -238,6 +238,6 @@ chrome.runtime.onMessage.addListener(
 //when installed goes to login page for dashboard
 chrome.runtime.onInstalled.addListener(details => {
   chrome.tabs.create({
-    url : "https://joinclove.org/website/stripeCode/subscription-use-cases/client/pages-sign-in.html"
+    url : "https://dashboard.joinclove.org/pages-sign-in.html"
   });
 });
