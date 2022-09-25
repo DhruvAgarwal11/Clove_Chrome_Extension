@@ -27526,6 +27526,8 @@ function updateDatabaseWithTransaction() {
         });
         document.querySelector('#popupElement1').innerHTML = "Current Pending Donations: $" + (Math.round(100*notDonatedAmount)/100);
         document.querySelector('#popupElement2').innerHTML = "Donations Paid For: $" + (Math.round(100*donatedAmount)/100);
+        document.querySelector('#popupElement3').innerHTML = "Pending CO₂ Emissions: " + (Math.round(100*notDonatedAmount)/(100*0.04)) + " kg";
+        document.querySelector('#popupElement4').innerHTML = "CO₂ Emissions Offset: " + (Math.round(100*donatedAmount)/(100*0.04)) + " kg";
     });
   } 
   else {
