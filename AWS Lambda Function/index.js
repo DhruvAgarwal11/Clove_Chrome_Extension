@@ -1,5 +1,5 @@
 const Stripe = require('stripe');
-const stripe = Stripe('sk_test_51LV1ErJLT225WxyG5cIBLIc7r8BYQ6mjA19uWLDbZVPVt8U6ZtsVsZCe94Dgm3Lfhhe0GsauYc35WGnb77okNv0H00gyEYG5US'); //stripe secret test key
+const stripe = Stripe('add_key'); //stripe secret test key
 //Lambda function
 
 exports.handler = async function(event, context, callback){
